@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A69AB27B2CA758C000FBB803 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A69AB27A2CA758C000FBB803 /* SnapKit */; };
 		A6B1C71D2CA722D10081FDC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */; };
 		A6B1C71F2CA722D10081FDC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */; };
 		A6B1C7212CA722D10081FDC2 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C7202CA722D10081FDC2 /* TodoListViewController.swift */; };
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6B1C7512CA726880081FDC2 /* Moya in Frameworks */,
+				A69AB27B2CA758C000FBB803 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A69AB2792CA758C000FBB803 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A6B1C7102CA722D10081FDC2 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +108,7 @@
 				A6B1C7352CA722D20081FDC2 /* todoTests */,
 				A6B1C73F2CA722D20081FDC2 /* todoUITests */,
 				A6B1C71A2CA722D10081FDC2 /* Products */,
+				A69AB2792CA758C000FBB803 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,6 +266,7 @@
 			name = todo;
 			packageProductDependencies = (
 				A6B1C7502CA726880081FDC2 /* Moya */,
+				A69AB27A2CA758C000FBB803 /* SnapKit */,
 			);
 			productName = todo;
 			productReference = A6B1C7192CA722D10081FDC2 /* todo.app */;
@@ -331,6 +342,7 @@
 			mainGroup = A6B1C7102CA722D10081FDC2;
 			packageReferences = (
 				A6B1C74F2CA726880081FDC2 /* XCRemoteSwiftPackageReference "Moya" */,
+				A6B1C76E2CA753360081FDC2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = A6B1C71A2CA722D10081FDC2 /* Products */;
 			projectDirPath = "";
@@ -731,9 +743,22 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		A6B1C76E2CA753360081FDC2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A69AB27A2CA758C000FBB803 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B1C76E2CA753360081FDC2 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		A6B1C7502CA726880081FDC2 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A6B1C74F2CA726880081FDC2 /* XCRemoteSwiftPackageReference "Moya" */;
