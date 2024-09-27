@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  todo
-//
-//  Created by Nick Coelius on 9/27/24.
-//
-
 import UIKit
 
 class TodoListViewController: UIViewController {

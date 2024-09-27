@@ -1,6 +1,6 @@
 import Foundation
 
-struct RemoteListItem: Codable {
+struct RemoteListItem: Codable, Hashable {
     let userId: Int
     let id: Int
     let title: String
