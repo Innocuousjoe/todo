@@ -1,8 +1,24 @@
 import Foundation
+import UIKit
 
 class TodoListViewModel {
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
-    var listItems: [RemoteListItem]?
+    enum Section: Hashable {
+        case listItems
+    }
+    
+    enum Item: Hashable {
+        case item(TodoListItemCell.ViewModel)
+    }
+    
+    var listItems: [RemoteListItem] = [] {
+        didSet {
+            updateSnapshot()
+        }
+    }
+    
+    var onSnapshotUpdate: ((_ snapshot: Snapshot) -> Void)?
     
     let name: String
     let listState: TodoListStateProtocol
@@ -22,5 +38,14 @@ class TodoListViewModel {
                 print(error)
             }
         }
+    }
+    
+    func updateSnapshot() {
+        var snapshot = Snapshot()
+        defer { onSnapshotUpdate?(snapshot) }
+        
+        snapshot.appendSections([.listItems])
+        let filteredItems = listItems.filter { $0.userId == 3 }
+        snapshot.appendItems(filteredItems.map { .item(.init(listItem: $0)) })
     }
 }

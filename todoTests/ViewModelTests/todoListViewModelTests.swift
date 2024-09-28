@@ -9,9 +9,13 @@ final class todoListViewModelTests: XCTestCase {
     }
     
     func testViewDidLoad() throws {
+        viewModel.onSnapshotUpdate = { snapshot in
+            XCTAssert(snapshot.sectionIdentifiers.count == 1)
+            XCTAssert(snapshot.itemIdentifiers.count == 1)
+        }
         viewModel.viewDidLoad()
         
         XCTAssert(viewModel.name == "Test")
-        XCTAssert(viewModel.listItems?.count == 3)
+        XCTAssert(viewModel.listItems.count == 3)
     }
 }

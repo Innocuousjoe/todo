@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A69AB27B2CA758C000FBB803 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A69AB27A2CA758C000FBB803 /* SnapKit */; };
+		A69AB27E2CA8643B00FBB803 /* todoListItemCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB27D2CA8643B00FBB803 /* todoListItemCellTests.swift */; };
+		A69AB2802CA86E1400FBB803 /* UICollectionViewCompositionalLayout+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB27F2CA86E1400FBB803 /* UICollectionViewCompositionalLayout+Extensions.swift */; };
 		A6B1C71D2CA722D10081FDC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */; };
 		A6B1C71F2CA722D10081FDC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */; };
 		A6B1C7212CA722D10081FDC2 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C7202CA722D10081FDC2 /* TodoListViewController.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A69AB27D2CA8643B00FBB803 /* todoListItemCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoListItemCellTests.swift; sourceTree = "<group>"; };
+		A69AB27F2CA86E1400FBB803 /* UICollectionViewCompositionalLayout+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCompositionalLayout+Extensions.swift"; sourceTree = "<group>"; };
 		A6B1C7192CA722D10081FDC2 /* todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +109,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A69AB27C2CA8642800FBB803 /* CellTests */ = {
+			isa = PBXGroup;
+			children = (
+				A69AB27D2CA8643B00FBB803 /* todoListItemCellTests.swift */,
+			);
+			path = CellTests;
+			sourceTree = "<group>";
+		};
 		A6B1C7102CA722D10081FDC2 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +156,7 @@
 		A6B1C7352CA722D20081FDC2 /* todoTests */ = {
 			isa = PBXGroup;
 			children = (
+				A69AB27C2CA8642800FBB803 /* CellTests */,
 				A6B1C7672CA74CF10081FDC2 /* Mocks */,
 				A6B1C75C2CA7416B0081FDC2 /* UtilityTests */,
 				A6B1C75B2CA741600081FDC2 /* ViewModelTests */,
@@ -266,6 +279,7 @@
 			children = (
 				A6B1C7652CA74C900081FDC2 /* ProtocolDefinitions.swift */,
 				A6B1C7702CA754100081FDC2 /* UIView+Extensions.swift */,
+				A69AB27F2CA86E1400FBB803 /* UICollectionViewCompositionalLayout+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,6 +428,7 @@
 				A6B1C71D2CA722D10081FDC2 /* AppDelegate.swift in Sources */,
 				A6B1C7662CA74C900081FDC2 /* ProtocolDefinitions.swift in Sources */,
 				A6B1C7562CA727570081FDC2 /* APIProvider.swift in Sources */,
+				A69AB2802CA86E1400FBB803 /* UICollectionViewCompositionalLayout+Extensions.swift in Sources */,
 				A6B1C7602CA743AA0081FDC2 /* ResponseBody.swift in Sources */,
 				A6B1C71F2CA722D10081FDC2 /* SceneDelegate.swift in Sources */,
 				A6B1C75A2CA741470081FDC2 /* TodoListViewModel.swift in Sources */,
@@ -428,6 +443,7 @@
 			files = (
 				A6B1C76A2CA74D060081FDC2 /* MockTodoListState.swift in Sources */,
 				A6B1C75E2CA741960081FDC2 /* todoListViewModelTests.swift in Sources */,
+				A69AB27E2CA8643B00FBB803 /* todoListItemCellTests.swift in Sources */,
 				A6B1C7372CA722D20081FDC2 /* todoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

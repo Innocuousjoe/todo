@@ -2,21 +2,18 @@ import Foundation
 import Moya
 
 class TodoListState: TodoListStateProtocol {
-    var onFetchSuccess: ((Swift.Result<[RemoteListItem], Error>) -> Void)?
-    
     let api: APIProvider
     init(_ api: APIProvider) {
         self.api = api
     }
     
-    func fetchTodoListItems(_ completion: (Swift.Result<[RemoteListItem], Error>) -> Void) {
-        api.request(.getTaskList) { [weak self] result in
-            guard let self else { return }
+    func fetchTodoListItems(_ completion: @escaping (Swift.Result<[RemoteListItem], Error>) -> Void) {
+        api.request(.getTaskList) { result in
             switch result {
             case .success(let response):
                 do {
                     let items = try response.map([RemoteListItem].self)
-                    onFetchSuccess?(.success(items))
+                    completion(.success(items))
                 } catch(let error) {
                     print(error)
                 }
