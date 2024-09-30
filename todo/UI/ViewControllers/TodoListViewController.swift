@@ -27,6 +27,9 @@ class TodoListViewController: UIViewController {
         
         let addTaskReg = UICollectionView.CellRegistration<TodoListAddItemCell, Void> { [weak self] (cell, indexPath, viewModel) in
             
+            cell.onTap = {
+                self?.didTapAdd()
+            }
         }
         
         let dataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, TodoListViewModel.Item>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
@@ -148,7 +151,7 @@ class TodoListViewController: UIViewController {
     //MARK: Selectors
     @objc private func didTapAdd() {
         let alert = UIAlertController(title: "New Task",
-                                      message: "Add a to do task",
+                                      message: "Add a task",
                                       preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save",
@@ -160,7 +163,7 @@ class TodoListViewController: UIViewController {
               return
           }
 
-            print(nameToSave)
+            self.viewModel.createTask(nameToSave)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",

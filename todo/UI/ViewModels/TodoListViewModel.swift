@@ -94,7 +94,22 @@ class TodoListViewModel {
         }
     }
     
-    func updateSnapshot() {
+    func createTask(_ title: String) {
+        guard let viewContext, let entity = NSEntityDescription.entity(forEntityName: "ListItem", in: viewContext) else { return }
+        let newItem = NSManagedObject(entity: entity, insertInto: viewContext)
+//        newItem.setValue(UUID(), forKey: "id")
+        newItem.setValue(3, forKey: "userId")
+        newItem.setValue(title, forKey: "title")
+        newItem.setValue(page == .completed, forKey: "completed")
+        do {
+            try viewContext.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    //MARK: Private
+    private func updateSnapshot() {
         var snapshot = Snapshot()
         defer { onSnapshotUpdate?(snapshot) }
         

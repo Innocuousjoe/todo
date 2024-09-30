@@ -15,6 +15,8 @@ class TodoListAddItemCell: UICollectionViewCell {
         return view
     }()
     
+    var onTap: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,9 +31,16 @@ class TodoListAddItemCell: UICollectionViewCell {
             make.leading.equalTo(plus.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(15)
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        contentView.addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func didTap() {
+        onTap?()
     }
 }
