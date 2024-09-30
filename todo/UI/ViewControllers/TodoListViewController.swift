@@ -31,6 +31,9 @@ class TodoListViewController: UIViewController {
     private(set) lazy var dataSource: UICollectionViewDiffableDataSource<TodoListViewModel.Section, TodoListViewModel.Item> = {
         let itemCellReg = UICollectionView.CellRegistration<TodoListItemCell, TodoListItemCell.ViewModel> { [weak self] (cell, indexPath, viewModel) in
             
+            cell.onTapLabel = { listItem in
+                self?.didTapAddOrEdit(listItem)
+            }
             cell.onTapCheck = { listItem in
                 self?.viewModel.toggleCheck(listItem)
             }
@@ -40,7 +43,7 @@ class TodoListViewController: UIViewController {
         let addTaskReg = UICollectionView.CellRegistration<TodoListAddItemCell, Void> { [weak self] (cell, indexPath, viewModel) in
             
             cell.onTap = {
-                self?.didTapAdd()
+                self?.didTapAddOrEdit()
             }
         }
         
@@ -161,9 +164,20 @@ class TodoListViewController: UIViewController {
     }
     
     //MARK: Selectors
-    @objc private func didTapAdd() {
-        let alert = UIAlertController(title: "New Task",
-                                      message: "Add a task",
+    @objc private func didTapAddOrEdit(_ listItem: ListItem? = nil) {
+        let title: String
+        let message: String
+        var textFieldText: String? = ""
+        if let listItem {
+            title = "Edit Task"
+            message = "Update task title"
+            textFieldText = listItem.title
+        } else {
+            title = "New Task"
+            message = "Add a task"
+        }
+        let alert = UIAlertController(title: title,
+                                      message: message,
                                       preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save",
@@ -175,13 +189,15 @@ class TodoListViewController: UIViewController {
               return
           }
 
-            self.viewModel.createTask(nameToSave)
+            self.viewModel.addOrUpdate(nameToSave, listItem: listItem)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .cancel)
         
-        alert.addTextField()
+        alert.addTextField { textField in
+            textField.text = textFieldText
+        }
         
         alert.addAction(saveAction)
         alert.addAction(cancelAction)

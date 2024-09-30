@@ -22,6 +22,9 @@ class TodoListItemCell: UICollectionViewCell {
     private(set) lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
+        view.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapLabel))
+        view.addGestureRecognizer(tap)
         
         return view
     }()
@@ -36,6 +39,7 @@ class TodoListItemCell: UICollectionViewCell {
         return view
     }()
     
+    var onTapLabel: ((_ listItem: ListItem) -> Void)?
     var onTapCheck: ((_ listItem: ListItem) -> Void)?
     var viewModel: ViewModel?
     
@@ -49,7 +53,7 @@ class TodoListItemCell: UICollectionViewCell {
             make.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(20)
             make.leading.equalTo(checkmark.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(15)
         }
@@ -64,6 +68,11 @@ class TodoListItemCell: UICollectionViewCell {
         titleLabel.text = viewModel.title
         let checkTint: UIColor = viewModel.completed ? .green : .gray
         checkmark.setImage(UIImage(systemName: "checkmark")?.withTintColor(checkTint, renderingMode: .alwaysOriginal), for: .normal)
+    }
+    
+    @objc private func didTapLabel() {
+        guard let viewModel else { return }
+        onTapLabel?(viewModel.listItem)
     }
     
     @objc private func didTapCheck() {
