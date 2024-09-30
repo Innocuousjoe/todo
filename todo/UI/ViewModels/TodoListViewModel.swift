@@ -82,11 +82,9 @@ class TodoListViewModel {
     
     func viewDidLoad() {
         try! listItemFRC.performFetch()
-        listState.fetchTodoListItems { [weak self] result in
-            guard let self else { return }
+        listState.fetchTodoListItems { result in
             switch result {
             case .success:
-//                self.listItems = items
                 ()
             case .failure(let error):
                 print(error)
@@ -146,7 +144,9 @@ class TodoListViewModel {
         defer { onSnapshotUpdate?(snapshot) }
         
         snapshot.appendSections([.listItems])
-        snapshot.appendItems(listItems.map { .item(.init(listItem: $0)) })
+        snapshot.appendItems(
+            listItems.map { .item(.init(listItem: $0, title: $0.title ?? "")) }
+        )
         snapshot.appendItems([.addItem])
     }
 }

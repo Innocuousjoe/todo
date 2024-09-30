@@ -4,18 +4,16 @@ import SnapKit
 class TodoListItemCell: UICollectionViewCell {
     struct ViewModel: Hashable {
         
-        var title: String? {
-            listItem.title
-        }
-        
         var completed: Bool {
             listItem.completed
         }
         
         let listItem: ListItem
+        let title: String
         
-        init(listItem: ListItem) {
+        init(listItem: ListItem, title: String) {
             self.listItem = listItem
+            self.title = title
         }
     }
     

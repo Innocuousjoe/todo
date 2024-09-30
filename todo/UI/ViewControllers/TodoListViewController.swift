@@ -185,7 +185,7 @@ class TodoListViewController: UIViewController {
           [unowned self] action in
                                         
           guard let textField = alert.textFields?.first,
-            let nameToSave = textField.text else {
+                let nameToSave = textField.text, nameToSave.count > 0 else {
               return
           }
 
