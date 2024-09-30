@@ -84,7 +84,31 @@ class TodoListViewController: UIViewController {
     
     //MARK: Selectors
     @objc private func didTapAdd() {
+        let alert = UIAlertController(title: "New Task",
+                                      message: "Add a to do task",
+                                      preferredStyle: .alert)
         
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) {
+          [unowned self] action in
+                                        
+          guard let textField = alert.textFields?.first,
+            let nameToSave = textField.text else {
+              return
+          }
+
+            print(nameToSave)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel)
+        
+        alert.addTextField()
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
     
     //MARK: Private
