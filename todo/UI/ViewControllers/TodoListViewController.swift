@@ -44,8 +44,28 @@ class TodoListViewController: UIViewController {
         viewModel = TodoListViewModel(TodoListState(APIProvider()))
         super.init(nibName: nil, bundle: nil)
         
+        let homeImage = UIImageView(image: UIImage(named: "homethrive")?.withRenderingMode(.alwaysOriginal))
+        homeImage.snp.makeConstraints { $0.size.equalTo(24) }
+        let leftBar = UIBarButtonItem(customView: homeImage)
+        navigationItem.leftBarButtonItem = leftBar
+        
+        let addButton = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain, 
+            target: self,
+            action: #selector(didTapAdd)
+        )
+        navigationItem.rightBarButtonItem = addButton
+        
+        UINavigationBar.appearance().backgroundColor = .white
+        
+        navigationItem.title = "To Do"
+        
         view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.bottom.trailing.equalToSuperview()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +74,6 @@ class TodoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
     
         viewModel.onSnapshotUpdate = { [weak self] snapshot in
             self?.dataSource.apply(snapshot)
@@ -63,6 +82,12 @@ class TodoListViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    //MARK: Selectors
+    @objc private func didTapAdd() {
+        
+    }
+    
+    //MARK: Private
     private func layout(for section: TodoListViewModel.Section) -> NSCollectionLayoutSection {
         switch section {
         case .listItems:
