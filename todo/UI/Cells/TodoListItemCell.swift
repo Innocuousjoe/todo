@@ -28,6 +28,9 @@ class TodoListItemCell: UICollectionViewCell {
     
     private(set) lazy var checkmark: UIButton = {
         let view = UIButton()
+        view.imageView?.contentMode = .scaleAspectFill
+        view.contentHorizontalAlignment = .fill
+        view.contentVerticalAlignment = .fill
         
         return view
     }()
@@ -37,13 +40,13 @@ class TodoListItemCell: UICollectionViewCell {
         
         contentView.addSubviews(checkmark, titleLabel)
         checkmark.snp.makeConstraints { make in
-            make.size.equalTo(48)
+            make.size.equalTo(24)
             make.leading.equalToSuperview().offset(15)
             make.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(checkmark.snp.trailing)
+            make.leading.equalTo(checkmark.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(15)
         }
     }

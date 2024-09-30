@@ -25,6 +25,10 @@ class TodoListViewController: UIViewController {
             cell.configure(viewModel)
         }
         
+        let addTaskReg = UICollectionView.CellRegistration<TodoListAddItemCell, Void> { [weak self] (cell, indexPath, viewModel) in
+            
+        }
+        
         let dataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, TodoListViewModel.Item>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             switch itemIdentifier {
             case let .item(viewModel):
@@ -32,6 +36,12 @@ class TodoListViewController: UIViewController {
                     using: itemCellReg,
                     for: indexPath,
                     item: viewModel
+                )
+            case .addItem:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: addTaskReg, 
+                    for: indexPath,
+                    item: ()
                 )
             }
         }

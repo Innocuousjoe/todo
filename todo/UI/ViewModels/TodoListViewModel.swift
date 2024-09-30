@@ -11,6 +11,7 @@ class TodoListViewModel {
     
     enum Item: Hashable {
         case item(TodoListItemCell.ViewModel)
+        case addItem
     }
     
     enum Page {
@@ -99,6 +100,7 @@ class TodoListViewModel {
         
         snapshot.appendSections([.listItems])
         snapshot.appendItems(listItems.map { .item(.init(listItem: $0)) })
+        snapshot.appendItems([.addItem])
     }
 }
 
