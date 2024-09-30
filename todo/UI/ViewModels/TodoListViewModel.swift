@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 import UIKit
 
 class TodoListViewModel {
@@ -12,28 +13,54 @@ class TodoListViewModel {
         case item(TodoListItemCell.ViewModel)
     }
     
-    var listItems: [RemoteListItem] = [] {
-        didSet {
-            updateSnapshot()
-        }
+    var listItems: [ListItem] {
+        listItemFRC.fetchedObjects as? [ListItem] ?? []
     }
+    
+    private lazy var listItemFRC: NSFetchedResultsController<NSManagedObject> = {
+        let newFRC = NSFetchedResultsController(
+            fetchRequest: listItemRequest,
+            managedObjectContext: viewContext!,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        newFRC.delegate = frcDelegate
+        
+        return newFRC
+    }()
+    
+    private lazy var frcDelegate: FetchedResultsControllerDelegate = {
+        return FetchedResultsControllerDelegate(
+            onChange: { [weak self] in self?.updateSnapshot() }
+        )
+    }()
+    
+    private var listItemRequest: NSFetchRequest = {
+        let request = NSFetchRequest<NSManagedObject>(entityName: "ListItem")
+        request.predicate = NSPredicate(format: "userId = 3")
+        request.sortDescriptors = []
+        
+        return request
+    }()
     
     var onSnapshotUpdate: ((_ snapshot: Snapshot) -> Void)?
     
-    let name: String
     let listState: TodoListStateProtocol
+    var viewContext: NSManagedObjectContext?
     
     init(_ state: TodoListStateProtocol) {
-        name = "Test"
         listState = state
+        viewContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     }
     
     func viewDidLoad() {
+        try! listItemFRC.performFetch()
         listState.fetchTodoListItems { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let items):
-                self.listItems = items
+            case .success:
+//                self.listItems = items
+                ()
             case .failure(let error):
                 print(error)
             }
@@ -45,7 +72,7 @@ class TodoListViewModel {
         defer { onSnapshotUpdate?(snapshot) }
         
         snapshot.appendSections([.listItems])
-        let filteredItems = listItems.filter { $0.userId == 3 }
-        snapshot.appendItems(filteredItems.map { .item(.init(listItem: $0)) })
+        snapshot.appendItems(listItems.map { .item(.init(listItem: $0)) })
     }
 }
+

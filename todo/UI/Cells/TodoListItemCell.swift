@@ -4,13 +4,13 @@ import SnapKit
 class TodoListItemCell: UICollectionViewCell {
     struct ViewModel: Hashable {
         
-        var title: String {
+        var title: String? {
             listItem.title
         }
         
-        private let listItem: RemoteListItem
+        private let listItem: ListItem
         
-        init(listItem: RemoteListItem) {
+        init(listItem: ListItem) {
             self.listItem = listItem
         }
     }
