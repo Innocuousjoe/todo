@@ -9,14 +9,23 @@ class TodoListViewController: UIViewController {
         return view
     }()
     
-    private(set) lazy var layout: UICollectionViewCompositionalLayout = {
-        let layout = UICollectionViewCompositionalLayout { [unowned self] (sectionIndex, environment) in
-            let sectionItem = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
+    private(set) lazy var layout: UICollectionViewCompositionalLayout = { [weak self] in
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        guard let self else { return .list(using: config) }
+        
+        config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+            var actions: [UIContextualAction] = []
+            if case let .item(itemCellViewModel) = self?.dataSource.itemIdentifier(for: indexPath) {
+                let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { _, _, completion in
+                    self?.viewModel.deleteItem(itemCellViewModel.listItem, completion: completion)
+                })
+                actions.append(deleteAction)
+            }
             
-            return self.layout(for: sectionItem)
+            return .init(actions: actions)
         }
         
-        return layout
+        return UICollectionViewCompositionalLayout.list(using: config)
     }()
     
     private(set) lazy var dataSource: UICollectionViewDiffableDataSource<TodoListViewModel.Section, TodoListViewModel.Item> = {
