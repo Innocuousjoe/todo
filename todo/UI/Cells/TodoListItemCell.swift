@@ -8,6 +8,10 @@ class TodoListItemCell: UICollectionViewCell {
             listItem.title
         }
         
+        var completed: Bool {
+            listItem.completed
+        }
+        
         private let listItem: ListItem
         
         init(listItem: ListItem) {
@@ -22,13 +26,25 @@ class TodoListItemCell: UICollectionViewCell {
         return view
     }()
     
+    private(set) lazy var checkmark: UIButton = {
+        let view = UIButton()
+        
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubviews(titleLabel)
+        contentView.addSubviews(checkmark, titleLabel)
+        checkmark.snp.makeConstraints { make in
+            make.size.equalTo(48)
+            make.leading.equalToSuperview().offset(15)
+            make.centerY.equalToSuperview()
+        }
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(15)
+            make.leading.equalTo(checkmark.snp.trailing)
+            make.trailing.equalToSuperview().inset(15)
         }
     }
     
@@ -38,5 +54,7 @@ class TodoListItemCell: UICollectionViewCell {
     
     func configure(_ viewModel: ViewModel) {
         titleLabel.text = viewModel.title
+        let checkTint: UIColor = viewModel.completed ? .green : .gray
+        checkmark.setImage(UIImage(systemName: "checkmark")?.withTintColor(checkTint, renderingMode: .alwaysOriginal), for: .normal)
     }
 }
