@@ -13,8 +13,23 @@ class TodoListViewModel {
         case item(TodoListItemCell.ViewModel)
     }
     
+    enum Page {
+        case active
+        case completed
+        case all
+    }
+    
     var listItems: [ListItem] {
-        listItemFRC.fetchedObjects as? [ListItem] ?? []
+        let items = listItemFRC.fetchedObjects as? [ListItem] ?? []
+        
+        switch page {
+        case .active:
+            return items.filter { !$0.completed }
+        case .completed:
+            return items.filter { $0.completed }
+        case .all:
+            return items
+        }
     }
     
     private lazy var listItemFRC: NSFetchedResultsController<NSManagedObject> = {
@@ -45,12 +60,23 @@ class TodoListViewModel {
     
     var onSnapshotUpdate: ((_ snapshot: Snapshot) -> Void)?
     
+    var page: Page = .active {
+        didSet {
+            updateSnapshot()
+        }
+    }
+    
     let listState: TodoListStateProtocol
     var viewContext: NSManagedObjectContext?
     
     init(_ state: TodoListStateProtocol) {
         listState = state
         viewContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    }
+    
+    func didTapNewPage(_ newPage: Page) {
+        guard newPage != page else { return }
+        self.page = newPage
     }
     
     func viewDidLoad() {

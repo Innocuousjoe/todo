@@ -39,6 +39,62 @@ class TodoListViewController: UIViewController {
         return dataSource
     }()
     
+    private(set) lazy var activeTab: PageHeader = {
+        let view = PageHeader("Active", selected: true)
+        
+        view.onTap = { [weak self] in
+            self?.completedTab.isSelected = false
+            self?.allTab.isSelected = false
+            self?.viewModel.didTapNewPage(.active)
+        }
+        return view
+    }()
+    
+    private(set) lazy var completedTab: PageHeader = {
+        let view = PageHeader("Completed", selected: false)
+
+        view.onTap = { [weak self] in
+            self?.activeTab.isSelected = false
+            self?.allTab.isSelected = false
+            self?.viewModel.didTapNewPage(.completed)
+        }
+        return view
+    }()
+    
+    private(set) lazy var allTab: PageHeader = {
+        let view = PageHeader("All", selected: false)
+
+        view.onTap = { [weak self] in
+            self?.completedTab.isSelected = false
+            self?.activeTab.isSelected = false
+            self?.viewModel.didTapNewPage(.all)
+        }
+        
+        return view
+    }()
+    
+    private(set) lazy var headerWrapper: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.addSubviews(activeTab, completedTab, allTab)
+        activeTab.snp.makeConstraints { make in
+            make.top.leading.bottom.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
+        completedTab.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
+        allTab.snp.makeConstraints { make in
+            make.top.bottom.trailing.equalToSuperview()
+            make.leading.equalTo(completedTab.snp.trailing)
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
+        
+        return view
+    }()
+    
     let viewModel: TodoListViewModel
     init() {
         viewModel = TodoListViewModel(TodoListState(APIProvider()))
@@ -49,21 +105,18 @@ class TodoListViewController: UIViewController {
         let leftBar = UIBarButtonItem(customView: homeImage)
         navigationItem.leftBarButtonItem = leftBar
         
-        let addButton = UIBarButtonItem(
-            image: UIImage(systemName: "plus"),
-            style: .plain, 
-            target: self,
-            action: #selector(didTapAdd)
-        )
-        navigationItem.rightBarButtonItem = addButton
-        
         UINavigationBar.appearance().backgroundColor = .white
         
         navigationItem.title = "To Do"
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
+        view.addSubviews(headerWrapper,collectionView)
+        headerWrapper.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerWrapper.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
     }
