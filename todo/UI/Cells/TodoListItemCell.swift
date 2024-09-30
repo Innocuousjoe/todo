@@ -12,7 +12,7 @@ class TodoListItemCell: UICollectionViewCell {
             listItem.completed
         }
         
-        private let listItem: ListItem
+        let listItem: ListItem
         
         init(listItem: ListItem) {
             self.listItem = listItem
@@ -31,9 +31,13 @@ class TodoListItemCell: UICollectionViewCell {
         view.imageView?.contentMode = .scaleAspectFill
         view.contentHorizontalAlignment = .fill
         view.contentVerticalAlignment = .fill
+        view.addTarget(self, action: #selector(didTapCheck), for: .touchUpInside)
         
         return view
     }()
+    
+    var onTapCheck: ((_ listItem: ListItem) -> Void)?
+    var viewModel: ViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,8 +60,14 @@ class TodoListItemCell: UICollectionViewCell {
     }
     
     func configure(_ viewModel: ViewModel) {
+        self.viewModel = viewModel
         titleLabel.text = viewModel.title
         let checkTint: UIColor = viewModel.completed ? .green : .gray
         checkmark.setImage(UIImage(systemName: "checkmark")?.withTintColor(checkTint, renderingMode: .alwaysOriginal), for: .normal)
+    }
+    
+    @objc private func didTapCheck() {
+        guard let viewModel else { return }
+        onTapCheck?(viewModel.listItem)
     }
 }

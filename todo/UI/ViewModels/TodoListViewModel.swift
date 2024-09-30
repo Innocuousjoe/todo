@@ -97,11 +97,21 @@ class TodoListViewModel {
     func createTask(_ title: String) {
         guard let viewContext, let entity = NSEntityDescription.entity(forEntityName: "ListItem", in: viewContext) else { return }
         let newItem = NSManagedObject(entity: entity, insertInto: viewContext)
-//        newItem.setValue(UUID(), forKey: "id")
+        newItem.setValue(UUID(), forKey: "id")
         newItem.setValue(3, forKey: "userId")
         newItem.setValue(title, forKey: "title")
         newItem.setValue(page == .completed, forKey: "completed")
         do {
+            try viewContext.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func toggleCheck(_ listItem: ListItem) {
+        guard let viewContext else { return }
+        do {
+            listItem.setValue(!listItem.completed, forKey: "completed")
             try viewContext.save()
         } catch {
             print(error)

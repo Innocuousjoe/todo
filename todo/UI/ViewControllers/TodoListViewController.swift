@@ -22,6 +22,9 @@ class TodoListViewController: UIViewController {
     private(set) lazy var dataSource: UICollectionViewDiffableDataSource<TodoListViewModel.Section, TodoListViewModel.Item> = {
         let itemCellReg = UICollectionView.CellRegistration<TodoListItemCell, TodoListItemCell.ViewModel> { [weak self] (cell, indexPath, viewModel) in
             
+            cell.onTapCheck = { listItem in
+                self?.viewModel.toggleCheck(listItem)
+            }
             cell.configure(viewModel)
         }
         
