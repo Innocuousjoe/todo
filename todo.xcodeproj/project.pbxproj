@@ -14,6 +14,8 @@
 		A69AB2872CAB0D5A00FBB803 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB2862CAB0D5A00FBB803 /* UtilityFunctions.swift */; };
 		A69AB28A2CAB244B00FBB803 /* PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB2892CAB244B00FBB803 /* PageHeader.swift */; };
 		A69AB28C2CAB2E9400FBB803 /* TodoListAddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB28B2CAB2E9400FBB803 /* TodoListAddItemCell.swift */; };
+		A69AB28F2CAC576D00FBB803 /* MockListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB28E2CAC576D00FBB803 /* MockListItems.swift */; };
+		A69AB2942CAC5A3900FBB803 /* todoCoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB2932CAC5A3900FBB803 /* todoCoreDataTests.swift */; };
 		A6B1C71D2CA722D10081FDC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */; };
 		A6B1C71F2CA722D10081FDC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */; };
 		A6B1C7212CA722D10081FDC2 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C7202CA722D10081FDC2 /* TodoListViewController.swift */; };
@@ -59,6 +61,8 @@
 		A69AB2862CAB0D5A00FBB803 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		A69AB2892CAB244B00FBB803 /* PageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHeader.swift; sourceTree = "<group>"; };
 		A69AB28B2CAB2E9400FBB803 /* TodoListAddItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListAddItemCell.swift; sourceTree = "<group>"; };
+		A69AB28E2CAC576D00FBB803 /* MockListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockListItems.swift; sourceTree = "<group>"; };
+		A69AB2932CAC5A3900FBB803 /* todoCoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoCoreDataTests.swift; sourceTree = "<group>"; };
 		A6B1C7192CA722D10081FDC2 /* todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +161,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		A69AB28D2CAC575D00FBB803 /* MockModels */ = {
+			isa = PBXGroup;
+			children = (
+				A69AB28E2CAC576D00FBB803 /* MockListItems.swift */,
+			);
+			path = MockModels;
+			sourceTree = "<group>";
+		};
+		A69AB2902CAC5A1800FBB803 /* CoreDataTests */ = {
+			isa = PBXGroup;
+			children = (
+				A69AB2932CAC5A3900FBB803 /* todoCoreDataTests.swift */,
+			);
+			path = CoreDataTests;
+			sourceTree = "<group>";
+		};
 		A6B1C7102CA722D10081FDC2 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +216,7 @@
 		A6B1C7352CA722D20081FDC2 /* todoTests */ = {
 			isa = PBXGroup;
 			children = (
+				A69AB2902CAC5A1800FBB803 /* CoreDataTests */,
 				A69AB2852CAB0D5000FBB803 /* Helpers */,
 				A69AB27C2CA8642800FBB803 /* CellTests */,
 				A6B1C7672CA74CF10081FDC2 /* Mocks */,
@@ -296,6 +317,7 @@
 		A6B1C7672CA74CF10081FDC2 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				A69AB28D2CAC575D00FBB803 /* MockModels */,
 				A6B1C7682CA74CF60081FDC2 /* MockState */,
 			);
 			path = Mocks;
@@ -488,6 +510,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69AB2942CAC5A3900FBB803 /* todoCoreDataTests.swift in Sources */,
+				A69AB28F2CAC576D00FBB803 /* MockListItems.swift in Sources */,
 				A6B1C76A2CA74D060081FDC2 /* MockTodoListState.swift in Sources */,
 				A6B1C75E2CA741960081FDC2 /* todoListViewModelTests.swift in Sources */,
 				A69AB27E2CA8643B00FBB803 /* todoListItemCellTests.swift in Sources */,

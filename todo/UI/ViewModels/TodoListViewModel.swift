@@ -82,10 +82,10 @@ class TodoListViewModel {
     
     func viewDidLoad() {
         try! listItemFRC.performFetch()
-        listState.fetchTodoListItems { result in
+        listState.fetchTodoListItems { [weak self] result in
             switch result {
             case .success:
-                ()
+                self?.updateSnapshot()
             case .failure(let error):
                 print(error)
             }

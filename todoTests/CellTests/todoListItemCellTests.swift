@@ -32,7 +32,7 @@ final class todoListItemCellTests: XCTestCase {
     }
 
     func testConfigure() throws {
-        cell?.configure(.init(listItem: listItem!))
+        cell?.configure(.init(listItem: listItem!, title: listItem!.title!))
         
         XCTAssert(cell?.titleLabel.text == "Hallo")
     }
