@@ -9,7 +9,7 @@ via **XCode**
 4. Run using your preferred simulator
 
 via **TestFlight**
-1. Download app via [link to be determined](https://www.google.com)
+1. In progress
 
 # Architecture Overview
 ## Networking
