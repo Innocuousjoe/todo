@@ -16,6 +16,7 @@
 		A69AB28C2CAB2E9400FBB803 /* TodoListAddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB28B2CAB2E9400FBB803 /* TodoListAddItemCell.swift */; };
 		A69AB28F2CAC576D00FBB803 /* MockListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB28E2CAC576D00FBB803 /* MockListItems.swift */; };
 		A69AB2942CAC5A3900FBB803 /* todoCoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69AB2932CAC5A3900FBB803 /* todoCoreDataTests.swift */; };
+		A69AB2992CAC6D2700FBB803 /* UITestSugar in Frameworks */ = {isa = PBXBuildFile; productRef = A69AB2982CAC6D2700FBB803 /* UITestSugar */; };
 		A6B1C71D2CA722D10081FDC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71C2CA722D10081FDC2 /* AppDelegate.swift */; };
 		A6B1C71F2CA722D10081FDC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C71E2CA722D10081FDC2 /* SceneDelegate.swift */; };
 		A6B1C7212CA722D10081FDC2 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1C7202CA722D10081FDC2 /* TodoListViewController.swift */; };
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69AB2992CAC6D2700FBB803 /* UITestSugar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +408,9 @@
 				A6B1C73E2CA722D20081FDC2 /* PBXTargetDependency */,
 			);
 			name = todoUITests;
+			packageProductDependencies = (
+				A69AB2982CAC6D2700FBB803 /* UITestSugar */,
+			);
 			productName = todoUITests;
 			productReference = A6B1C73C2CA722D20081FDC2 /* todoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -445,6 +450,7 @@
 			packageReferences = (
 				A6B1C74F2CA726880081FDC2 /* XCRemoteSwiftPackageReference "Moya" */,
 				A6B1C76E2CA753360081FDC2 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				A69AB2972CAC6D2600FBB803 /* XCRemoteSwiftPackageReference "UITestSugar" */,
 			);
 			productRefGroup = A6B1C71A2CA722D10081FDC2 /* Products */;
 			projectDirPath = "";
@@ -851,6 +857,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A69AB2972CAC6D2600FBB803 /* XCRemoteSwiftPackageReference "UITestSugar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eonist/UITestSugar";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		A6B1C74F2CA726880081FDC2 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -874,6 +888,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A6B1C76E2CA753360081FDC2 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		A69AB2982CAC6D2700FBB803 /* UITestSugar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A69AB2972CAC6D2600FBB803 /* XCRemoteSwiftPackageReference "UITestSugar" */;
+			productName = UITestSugar;
 		};
 		A6B1C7502CA726880081FDC2 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;

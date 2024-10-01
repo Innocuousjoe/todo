@@ -44,6 +44,15 @@
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
       }
+    },
+    {
+      "identity" : "uitestsugar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eonist/UITestSugar",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2d1de39d76a56ca2ce0b74641a42774ef2ebe022"
+      }
     }
   ],
   "version" : 2

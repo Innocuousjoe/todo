@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import UITestSugar
 
 final class todoUITests: XCTestCase {
 
@@ -22,20 +23,78 @@ final class todoUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testUI() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
-
+        
+        XCTAssertTrue(app.staticTexts["Active"].exists)
+        XCTAssertTrue(app.staticTexts["Completed"].exists)
+        XCTAssertTrue(app.staticTexts["All"].exists)
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+    
+    func testAddingTask() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.firstMatch.scrollTo { element in
+            return element.staticTexts["Add task"].exists
         }
+        collectionViewsQuery/*@START_MENU_TOKEN@*/.staticTexts["Add task"]/*[[".cells.staticTexts[\"Add task\"]",".staticTexts[\"Add task\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        let textField = app.alerts["New Task"].textFields.firstMatch
+        textField.tap()
+        textField.typeText("Hello, this is a new task")
+        app.alerts["New Task"].scrollViews.otherElements.buttons["Save"].tap()
+        XCTAssertTrue(app.buttons["Hello, this is a new task"].exists)
+    }
+    
+    func testEditingTask() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let collectionView = app.collectionViews.firstMatch
+        let firstCell = collectionView.cells.firstMatch
+        firstCell.tap()
+        let textField = app.alerts["Edit Task"].textFields.firstMatch
+        textField.clearAndEnterText(text: "Eyyyyy")
+        app.alerts["Edit Task"].scrollViews.otherElements.buttons["Save"].tap()
+        XCTAssertTrue(app.buttons["Eyyyyy"].exists)
+    }
+    
+    func testDeletingTask() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let collectionView = app.collectionViews.firstMatch
+        let firstCell = collectionView.cells.firstMatch
+        
+        firstCell.tap()
+        let textField = app.alerts["Edit Task"].textFields.firstMatch
+        textField.clearAndEnterText(text: "Eyyyyy")
+        app.alerts["Edit Task"].scrollViews.otherElements.buttons["Save"].tap()
+        
+        firstCell.swipeLeft(velocity: .fast)
+        app.buttons["Delete"].tap()
+        XCTAssert(!app.buttons["Eyyyyy"].exists)
+    }
+    
+    func testCompletingTask() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let collectionView = app.collectionViews.firstMatch
+        let firstCell = collectionView.cells.firstMatch
+        
+        app.staticTexts["Completed"].tap()
+        XCTAssertFalse(app.buttons["Eyyyyy"].exists)
+        
+        app.staticTexts["Active"].tap()
+        firstCell.tap()
+        let textField = app.alerts["Edit Task"].textFields.firstMatch
+        textField.clearAndEnterText(text: "Eyyyyy")
+        app.alerts["Edit Task"].scrollViews.otherElements.buttons["Save"].tap()
+        
+        app.collectionViews.cells.otherElements.containing(.button, identifier:"Eyyyyy").buttons["selected"].tap()
+        app.staticTexts["Completed"].tap()
+        XCTAssert(app.buttons["Eyyyyy"].exists)
     }
 }
