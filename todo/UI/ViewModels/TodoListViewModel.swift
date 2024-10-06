@@ -54,7 +54,15 @@ class TodoListViewModel {
     private var listItemRequest: NSFetchRequest = {
         let request = NSFetchRequest<NSManagedObject>(entityName: "ListItem")
         request.predicate = NSPredicate(format: "userId = 3")
-        request.sortDescriptors = []
+        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        return request
+    }()
+    
+    private var lastIdRequest: NSFetchRequest = {
+        let request = NSFetchRequest<ListItem>(entityName: "ListItem")
+        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+        request.fetchLimit = 1
         
         return request
     }()
@@ -98,7 +106,9 @@ class TodoListViewModel {
             listItem.setValue(title, forKey: "title")
         } else if let entity = NSEntityDescription.entity(forEntityName: "ListItem", in: viewContext) {
             let newItem = NSManagedObject(entity: entity, insertInto: viewContext)
-            //        newItem.setValue(UUID(), forKey: "id")
+            if let lastItem = try? viewContext.fetch(lastIdRequest).first {
+                newItem.setValue(lastItem.id + 1, forKey: "id")
+            }
             newItem.setValue(3, forKey: "userId")
             newItem.setValue(title, forKey: "title")
             newItem.setValue(page == .completed, forKey: "completed")
