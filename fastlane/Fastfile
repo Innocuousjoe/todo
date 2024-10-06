@@ -18,7 +18,13 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    sync_code_signing
+    sync_code_signing(
+      type: "appstore", 
+      app_identifier: "com.nick.todo", 
+      keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
+      keychain_password: ENV["MATCH_PASSWORD"],
+      readonly: false
+    )
     increment_build_number(xcodeproj: "todo.xcodeproj")
     build_app(scheme: "todo")
     enable_automatic_code_signing(path: "todo.xcodeproj")
