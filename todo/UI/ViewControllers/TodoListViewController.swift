@@ -116,7 +116,6 @@ class TodoListViewController: UIViewController {
         }
         allTab.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(completedTab.snp.trailing)
             make.width.equalToSuperview().multipliedBy(0.3)
         }
         
