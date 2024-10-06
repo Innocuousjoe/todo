@@ -18,8 +18,10 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    sync_code_signing
     increment_build_number(xcodeproj: "todo.xcodeproj")
     build_app(scheme: "todo")
+    enable_automatic_code_signing(path: "todo.xcodeproj")
     upload_to_testflight
   end
 end
