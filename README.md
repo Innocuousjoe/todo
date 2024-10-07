@@ -9,7 +9,7 @@ via **XCode**
 4. Run using your preferred simulator
 
 via **TestFlight**
-1. In progress
+1. Via [this link](https://testflight.apple.com/join/vcsmSjP6)
 
 # Architecture Overview
 ## Networking
